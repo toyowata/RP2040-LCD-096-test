@@ -1,0 +1,50 @@
+{
+    "target_overrides": {
+        "*": {
+            "platform.stdio-baud-rate"                  : 115200,
+            "platform.stdio-convert-newlines"           : true,
+            "platform.stdio-buffered-serial"            : true,
+            "platform.stdio-flush-at-exit"              : true
+        },
+        "RASPBERRY_PI_PICO": {
+            "ST7735S-MOSI"                              : "p11",
+            "ST7735S-MISO"                              : "p24",
+            "ST7735S-SCLK"                              : "p10",
+            "ST7735S-CS"                                : "p9",
+            "ST7735S-RS"                                : "p8",
+            "ST7735S-RESET"                             : "p12"
+        }
+    },
+    "config": {
+        "ST7735S-MOSI"  : {
+            "help"      : "ST7735S MOSI pin name",
+            "value"     : "NC",
+            "macro_name": "ST7735S_MOSI"
+        },
+        "ST7735S-MISO"  : {
+            "help"      : "ST7735S MISO pin name",
+            "value"     : "NC",
+            "macro_name": "ST7735S_MISO"
+        },
+        "ST7735S-SCLK"  : {
+            "help"      : "ST7735S SCLK pin name",
+            "value"     : "NC",
+            "macro_name": "ST7735S_SCLK"
+        },
+        "ST7735S-CS"    : {
+            "help"      : "ST7735S CS pin name",
+            "value"     : "NC",
+            "macro_name": "ST7735S_CS"
+        },
+        "ST7735S-RS"    : {
+            "help"      : "ST7735S RS pin name",
+            "value"     : "NC",
+            "macro_name": "ST7735S_RS"
+        },
+        "ST7735S-RESET" : {
+            "help"      : "ST7735S RESET pin name",
+            "value"     : "NC",
+            "macro_name": "ST7735S_RESET"
+        }
+    }
+}
