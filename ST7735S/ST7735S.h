@@ -268,6 +268,15 @@ public:
     */  
     void set_font(unsigned char* f);
 
+    /** display on/off
+    *
+    * @param enable 0: display off, 1: display on
+    * 
+    *   set display on or off
+    *
+    */
+    void disp(int enable);
+
     SPI _spi;
     DigitalOut _cs;
     DigitalOut _rs;

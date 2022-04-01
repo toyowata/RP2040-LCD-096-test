@@ -7,11 +7,12 @@
 #include "USBSerial.h"
 #include "ST7735S.h"
 
-#include "Arial12x12.h"
-#include "Arial24x23.h"
-#include "Arial28x28.h"
-#include "font_big.h"
-#include "ImageData.h"
+#include "fonts/Arial12x12.h"
+#include "fonts/Arial24x23.h"
+#include "fonts/Arial28x28.h"
+#include "fonts/font_big.h"
+#include "images/ImageData.h"
+#include "images/ekimemo.h"
 
 const uint16_t color[18] = {
     Black,
@@ -37,17 +38,22 @@ const uint16_t color[18] = {
 DigitalOut back_light(p25);
 ST7735S tft(ST7735S_MOSI, ST7735S_MISO, ST7735S_SCLK, ST7735S_CS, ST7735S_RS, ST7735S_RESET);
 
-#define DEMO_COLOR      1
-#define DEMO_RECT       1
+#define DEMO_COLOR      0
+#define DEMO_RECT       0
 #define DEMO_ANIMATION  0
-#define DEMO_TEXT       1
+#define DEMO_TEXT       0
+#define DEMO_CLOCK      1
 #define DEMO_BITMAP     1
+#define DEMO_SCROLL     0
 
 int main()
 {
     back_light = 1;
 
     tft.claim(stdout);      // send stdout to the TFT display
+    tft.background(Black);
+    tft.cls();
+    tft.disp(1);
 
     while(1) {
 #if DEMO_COLOR
@@ -112,9 +118,35 @@ int main()
         ThisThread::sleep_for(4000ms);
 #endif
 
+#if DEMO_CLOCK
+        // Draw text
+        tft.foreground(Yellow);
+        tft.background(DarkGrey);
+        tft.cls();
+        tft.set_font((unsigned char*) Neu42x35);
+        char s[6];
+        for (int i = 0; i < 5; i++) {
+            tft.locate(20, 40-(35/2));
+            sprintf(s, "12:3%c", i + '0');
+            tft.printf("%s", s);
+            ThisThread::sleep_for(1000ms);
+        }
+        ThisThread::sleep_for(2000ms);
+#endif
+
 #if DEMO_BITMAP
         // Bitmap
         tft.Paint_DrawImage(gImage_0inch96_1, 0, 0, 160, 80);
+        ThisThread::sleep_for(4000ms);
+#endif
+
+#if DEMO_SCROLL
+        // Scroll
+        for (int i = 0; i < (284 - 80); i+=2) {
+            tft.Paint_DrawImage(ekimemo_bmp + (i * 160 * 2), 0, 0, 160, 80);
+            ThisThread::sleep_for(1ms);
+        }
+        tft.Paint_DrawImage(ekimemo_bmp, 0, 0, 160, 80);
         ThisThread::sleep_for(4000ms);
 #endif
 

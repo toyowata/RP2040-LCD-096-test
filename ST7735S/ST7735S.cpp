@@ -152,7 +152,7 @@ void ST7735S::init()
     wr_cmd(ST7735_MADCTL);
     wr_dat(0xA8);
 
-    wr_cmd(ST7735_DISPON);
+    //wr_cmd(ST7735_DISPON);
 
     WindowMax ();
 }
@@ -565,4 +565,14 @@ void ST7735S::Paint_DrawImage(const unsigned char *image, uint16_t xStart, uint1
         }
     }
     _cs = 1;
+}
+
+void ST7735S::disp(int enable)
+{
+    if (enable) {
+        wr_cmd(ST7735_DISPON);
+    }
+    else {
+        wr_cmd(ST7735_DISPOFF);
+    }
 }
